@@ -10,7 +10,7 @@ const router = createRouter({
 export default function App() {
     return (
         <StrictMode>
-            <RouterProvider router={router} />
+            <RouterProvider basepath={import.meta.env.BASE_URL} router={router} />
         </StrictMode>
     )
 }
