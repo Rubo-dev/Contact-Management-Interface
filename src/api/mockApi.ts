@@ -15,7 +15,6 @@ const initializeStorage = async () => {
 
             return users
         } catch (error) {
-            console.error('Error initializing storage:', error)
             localStorage.setItem(STORAGE_KEY, JSON.stringify([]))
 
             return []
