@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import {Link, useLocation, useRouter} from '@tanstack/react-router'
-import { Search, Plus, User } from 'lucide-react'
+import {Link, useLocation} from '@tanstack/react-router'
+import { Search, Plus } from 'lucide-react'
 import { useContacts } from '@/hooks/useContacts'
 import { useDebounce } from '@/hooks/useDebounce'
 import Loading from '@/components/Loading/Loading.tsx';
@@ -13,8 +13,8 @@ export const Sidebar = () => {
     const { data: contacts, isLoading, isError } = useContacts(debouncedSearchTerm)
 
     const currentPath: string = location.pathname
-    const currentContactId: string | null = currentPath.startsWith('/contacts/')
-        ? currentPath.split('/')[2]
+    const currentContactId: string | null = currentPath.startsWith(`${import.meta.env.BASE_URL}contacts/`)
+        ? currentPath.split('/')[3]
         : null
 
     return (
