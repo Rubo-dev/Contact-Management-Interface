@@ -5,6 +5,11 @@ import path from 'path'
 
 export default defineConfig({
   base: '/Contact-Management-Interface/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: true
+  },
   plugins: [react(), TanStackRouterVite()],
   resolve: {
     alias: {
