@@ -1,21 +1,18 @@
 import { useState } from 'react'
-import {Link, useLocation} from '@tanstack/react-router'
+import {Link, useParams} from '@tanstack/react-router'
 import { Search, Plus } from 'lucide-react'
-import { useContacts } from '@/hooks/useContacts'
+import { useUsers } from '@/hooks/useUsers.ts'
 import { useDebounce } from '@/hooks/useDebounce'
 import Loading from '@/components/Loading/Loading.tsx';
-import ContactItem from '@/components/ContactItem/ContactItem.tsx';
+import UserItem from '@/components/ContactItem/UserItem.tsx';
 
 export const Sidebar = () => {
     const [inputValue, setInputValue] = useState<string>('')
-    const debouncedSearchTerm = useDebounce(inputValue, 300)
-    const location = useLocation()
-    const { data: contacts, isLoading, isError } = useContacts(debouncedSearchTerm)
+    const debouncedSearchTerm = useDebounce(inputValue, 300);
+    const params = useParams({ strict: false });
 
-    const currentPath: string = location.pathname
-    const currentContactId: string | null = currentPath.startsWith(`${import.meta.env.BASE_URL}contacts/`)
-        ? currentPath.split('/')[3]
-        : null
+    const userId = params?.userId;
+    const { data: users, isLoading, isError } = useUsers(debouncedSearchTerm);
 
     return (
         <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
@@ -23,7 +20,7 @@ export const Sidebar = () => {
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-semibold">Contacts</h2>
                     <Link
-                        to="/contacts/new"
+                        to="/users/new"
                         className="p-2 text-blue-600 hover:text-blue-800"
                     >
                         <Plus size={20} />
@@ -49,14 +46,14 @@ export const Sidebar = () => {
                     <Loading text="Loading contacts..." className="p-4 text-center text-gray-500" />
                 ) : isError ? (
                     <div className="p-4 text-center text-red-500">Error loading contacts</div>
-                ) : contacts?.length === 0 ? (
+                ) : users?.length === 0 ? (
                     <div className="p-4 text-center text-gray-500">
                         {debouncedSearchTerm ? 'No contacts found' : 'No contacts yet'}
                     </div>
                 ) : (
                     <div className="flex flex-1 flex-col overflow-y-auto divide-y divide-gray-200">
-                        {contacts?.map((contact) => (
-                            <ContactItem contact={contact} currentContactId={currentContactId} key={contact.id} />
+                        {users?.map((user) => (
+                            <UserItem user={user} currentUserId={userId} key={user.id} />
                         ))}
                     </div>
                 )}

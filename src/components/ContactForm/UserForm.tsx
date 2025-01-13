@@ -1,17 +1,17 @@
 import { useForm } from '@tanstack/react-form'
-import { contactSchema, type Contact } from '@/types/contact'
-import { useCreateContact, useUpdateContact } from '@/hooks/useContacts'
-import {FC} from 'react';
-import ContactFormItem from '@/components/ContactForm/ContactFormItem.tsx';
+import { userSchema, type IUser } from '@/types/user.ts'
+import { useCreateUser, useUpdateUser } from '@/hooks/useUsers.ts'
+import {FC, FormEvent} from 'react';
+import UserFormItem from '@/components/ContactForm/UserFormItem.tsx';
 
-interface ContactFormProps {
+interface UserFormProps {
     handleCancel: () => void
-    initialData?: Contact
+    initialData?: IUser
 }
 
-export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) => {
-    const createContact = useCreateContact()
-    const updateContact = useUpdateContact()
+export const UserForm:FC<UserFormProps> = ({ initialData, handleCancel }) => {
+    const createContact = useCreateUser()
+    const updateContact = useUpdateUser()
 
     const form = useForm({
         defaultValues: {
@@ -22,7 +22,7 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
             description: initialData?.description ?? '',
         },
         validators: {
-            onChange: contactSchema,
+            onChange: userSchema,
             onChangeAsyncDebounceMs: 500,
         },
         onSubmit: async (values) => {
@@ -42,16 +42,18 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
         },
     })
 
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        e.stopPropagation()
+        form.handleSubmit()
+    }
+
     const isPending = createContact.isPending || updateContact.isPending
     const error = createContact.error || updateContact.error
 
     return (
             <form
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    form.handleSubmit()
-                }}
+                onSubmit={(e) => handleSubmit(e)}
                 className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-6"
             >
                 <h2 className="text-2xl font-bold mb-6">
@@ -61,11 +63,11 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
                     <form.Field
                         name="name"
                         validators={{
-                            onChange: contactSchema.shape.name,
+                            onChange: userSchema.shape.name,
                         }}
                     >
                         {(field) => (
-                            <ContactFormItem
+                            <UserFormItem
                                 label="Name"
                                 field={field}
                                 type="text"
@@ -75,11 +77,11 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
                     <form.Field
                         name="username"
                         validators={{
-                            onChange: contactSchema.shape.username,
+                            onChange: userSchema.shape.username,
                         }}
                     >
                         {(field) => (
-                            <ContactFormItem
+                            <UserFormItem
                                 label="Username"
                                 field={field}
                                 type="text"
@@ -89,11 +91,11 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
                     <form.Field
                         name="email"
                         validators={{
-                            onChange: contactSchema.shape.email,
+                            onChange: userSchema.shape.email,
                         }}
                     >
                         {(field) => (
-                            <ContactFormItem
+                            <UserFormItem
                                 label="Email"
                                 type="email"
                                 field={field}
@@ -103,11 +105,11 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
                     <form.Field
                         name="phone"
                         validators={{
-                            onChange: contactSchema.shape.phone,
+                            onChange: userSchema.shape.phone,
                         }}
                     >
                         {(field) => (
-                            <ContactFormItem
+                            <UserFormItem
                                 label="Phone"
                                 type="tel"
                                 field={field}
@@ -117,11 +119,11 @@ export const ContactForm:FC<ContactFormProps> = ({ initialData, handleCancel }) 
                     <form.Field
                         name="description"
                         validators={{
-                            onChange: contactSchema.shape.description,
+                            onChange: userSchema.shape.description,
                         }}
                     >
                         {(field) => (
-                            <ContactFormItem
+                            <UserFormItem
                                 label="Description"
                                 type="textarea"
                                 field={field}

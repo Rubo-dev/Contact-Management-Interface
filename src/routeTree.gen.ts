@@ -12,8 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as ContactsNewImport } from './routes/contacts.new'
-import { Route as ContactsContactIdImport } from './routes/contacts.$contactId'
+import { Route as UsersNewImport } from './routes/users.new'
+import { Route as UsersUserIdImport } from './routes/users.$userId'
 
 // Create/Update Routes
 
@@ -23,15 +23,15 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ContactsNewRoute = ContactsNewImport.update({
-  id: '/contacts/new',
-  path: '/contacts/new',
+const UsersNewRoute = UsersNewImport.update({
+  id: '/users/new',
+  path: '/users/new',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ContactsContactIdRoute = ContactsContactIdImport.update({
-  id: '/contacts/$contactId',
-  path: '/contacts/$contactId',
+const UsersUserIdRoute = UsersUserIdImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,18 +46,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/contacts/$contactId': {
-      id: '/contacts/$contactId'
-      path: '/contacts/$contactId'
-      fullPath: '/contacts/$contactId'
-      preLoaderRoute: typeof ContactsContactIdImport
+    '/users/$userId': {
+      id: '/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof UsersUserIdImport
       parentRoute: typeof rootRoute
     }
-    '/contacts/new': {
-      id: '/contacts/new'
-      path: '/contacts/new'
-      fullPath: '/contacts/new'
-      preLoaderRoute: typeof ContactsNewImport
+    '/users/new': {
+      id: '/users/new'
+      path: '/users/new'
+      fullPath: '/users/new'
+      preLoaderRoute: typeof UsersNewImport
       parentRoute: typeof rootRoute
     }
   }
@@ -67,42 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/contacts/$contactId': typeof ContactsContactIdRoute
-  '/contacts/new': typeof ContactsNewRoute
+  '/users/$userId': typeof UsersUserIdRoute
+  '/users/new': typeof UsersNewRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/contacts/$contactId': typeof ContactsContactIdRoute
-  '/contacts/new': typeof ContactsNewRoute
+  '/users/$userId': typeof UsersUserIdRoute
+  '/users/new': typeof UsersNewRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/contacts/$contactId': typeof ContactsContactIdRoute
-  '/contacts/new': typeof ContactsNewRoute
+  '/users/$userId': typeof UsersUserIdRoute
+  '/users/new': typeof UsersNewRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contacts/$contactId' | '/contacts/new'
+  fullPaths: '/' | '/users/$userId' | '/users/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contacts/$contactId' | '/contacts/new'
-  id: '__root__' | '/' | '/contacts/$contactId' | '/contacts/new'
+  to: '/' | '/users/$userId' | '/users/new'
+  id: '__root__' | '/' | '/users/$userId' | '/users/new'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ContactsContactIdRoute: typeof ContactsContactIdRoute
-  ContactsNewRoute: typeof ContactsNewRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
+  UsersNewRoute: typeof UsersNewRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ContactsContactIdRoute: ContactsContactIdRoute,
-  ContactsNewRoute: ContactsNewRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
+  UsersNewRoute: UsersNewRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,18 +116,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/contacts/$contactId",
-        "/contacts/new"
+        "/users/$userId",
+        "/users/new"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/contacts/$contactId": {
-      "filePath": "contacts.$contactId.tsx"
+    "/users/$userId": {
+      "filePath": "users.$userId.tsx"
     },
-    "/contacts/new": {
-      "filePath": "contacts.new.tsx"
+    "/users/new": {
+      "filePath": "users.new.tsx"
     }
   }
 }

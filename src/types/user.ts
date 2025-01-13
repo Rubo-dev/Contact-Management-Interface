@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const contactSchema = z.object({
+export const userSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
     username: z.string().min(3, 'Username must be at least 3 characters'),
     email: z.string().email('Invalid email address'),
@@ -8,9 +8,9 @@ export const contactSchema = z.object({
     description: z.string().optional(),
 })
 
-export type ContactFormData = z.infer<typeof contactSchema>
+export type UserFormData = z.infer<typeof userSchema>
 
-export interface Contact extends ContactFormData {
+export interface IUser extends UserFormData {
     id: number
     imageUrl?: string
 }

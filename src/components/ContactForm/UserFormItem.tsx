@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {FieldApi} from '@tanstack/react-form';
-import {FieldItem} from '@/types/contact.ts';
+import {FieldItem} from '@/types/user.ts';
 
 interface ContactFormItemProps {
     label: string;
@@ -8,7 +8,7 @@ interface ContactFormItemProps {
     field:  FieldApi<FieldItem, any, undefined, undefined, string> | FieldApi<FieldItem, any, undefined, undefined, string | undefined>;
 }
 
-const ContactFormItem: FC<ContactFormItemProps> = ({label, field, type}) => {
+const UserFormItem: FC<ContactFormItemProps> = ({label, field, type}) => {
 
     if (type === 'textarea') {
         return (
@@ -57,4 +57,4 @@ const ContactFormItem: FC<ContactFormItemProps> = ({label, field, type}) => {
     );
 };
 
-export default ContactFormItem;
+export default UserFormItem;

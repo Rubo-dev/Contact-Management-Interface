@@ -1,0 +1,2 @@
+DB creation --->  npx json-server db.json
+run application ----> vite
