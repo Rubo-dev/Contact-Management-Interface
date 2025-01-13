@@ -11,7 +11,6 @@ interface UserDetailsProps {
 }
 
 export const UserDetails: FC<UserDetailsProps> = ({ userId }) => {
-    const navigate: UseNavigateResult<string> = useNavigate()
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
     const { data: user, isLoading } = useUser(userId)
